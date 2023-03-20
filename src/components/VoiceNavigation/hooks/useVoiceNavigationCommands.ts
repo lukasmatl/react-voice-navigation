@@ -1,6 +1,7 @@
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import {useState} from "react";
 
+
 interface Command {
     command: string | string[] | RegExp;
     callback: (...args: any[]) => unknown;
@@ -8,6 +9,7 @@ interface Command {
     matchInterim?: boolean | undefined;
     fuzzyMatchingThreshold?: number | undefined;
     bestMatchOnly?: boolean | undefined;
+    group: string;
 }
 
 
@@ -28,8 +30,9 @@ export const useVoiceNavigationCommands = () => {
         setCommands(commands);
     }
 
-    const unregisterCommands = () => {
-        setCommands([]);
+    const unregisterCommands = (group: string) => {
+        const newCommands = commands.filter(command => command.group !== group);
+        setCommands(newCommands);
     }
 
     return {

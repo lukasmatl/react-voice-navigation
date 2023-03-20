@@ -1,4 +1,3 @@
-import {useVoiceNavigationCommands} from "../../hooks";
 import SpeechRecognition from "react-speech-recognition";
 import {useContext, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
@@ -23,10 +22,11 @@ export const SpeechRecognitionButton = () => {
                     default:
                         console.log(page);
                 }
-            }
+            },
+            group: "default",
         }]);
 
-        return unregisterCommands;
+        return () => unregisterCommands("default");
     }, []);
 
     return <div>
